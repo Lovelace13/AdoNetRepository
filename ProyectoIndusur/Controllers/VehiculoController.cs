@@ -1,4 +1,5 @@
-﻿using Infrastructure.Interfaces;
+﻿using Infrastructure.Entidades;
+using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,9 @@ namespace ProyectoIndusur.Controllers
         public IActionResult Index()
         {
             string baseDir = AppContext.BaseDirectory;
+            _vehiculoTest.GetAll();
 
             return PhysicalFile($"{baseDir}/Views/Vehiculo/Index.html", "text/html");
-            //return PhysicalFile("/Views/Vehiculo/Index.html", "text / html");
         }
 
 
@@ -30,6 +31,13 @@ namespace ProyectoIndusur.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
             return Ok( _vehiculoTest.GetAll() );
+        }
+
+        [HttpGet]
+        public JsonResult GetData()
+        {
+            IEnumerable<VehiculoEntity> data = _vehiculoTest.GetAll();
+            return new JsonResult(data);
         }
 
         // GET: VehiculoController/Details/5

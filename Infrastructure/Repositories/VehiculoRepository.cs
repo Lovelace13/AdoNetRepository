@@ -61,14 +61,16 @@ namespace Infrastructure.Repositories
 
             using (SqlCommand command = new SqlCommand("GetAllCar", _context))
             {
+
+                if (_transaction != null)
+                {
+                    command.Transaction = _transaction;
+                }
+
                 command.CommandType = CommandType.StoredProcedure;
                 if (_context.State != ConnectionState.Open)
                 {
                     _context.Open();
-                }
-                else
-                {
-                    throw new Exception("No se pudo conectar a la base");
                 }
 
 

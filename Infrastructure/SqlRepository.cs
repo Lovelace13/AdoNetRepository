@@ -89,6 +89,7 @@ namespace Infrastructure
         public ISqlIndusurAdapter Create()
         {
             cadenaConexion = _configuration.GetConnectionString("DefaultConnection");
+
             return new SqlIndusurAdapter(cadenaConexion); 
         }
 
